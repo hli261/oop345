@@ -1,0 +1,56 @@
+// Name:Xiaoqi Li
+// Seneca Student ID:154921183
+// Seneca email:xli399@myseneca.ca
+// Date of completion:Jan 18,2020
+
+Workshop 1 Reflection:
+In workshop 1, I learned some topics about C++ programming.
+
+1. The external and internal linkage. 
+The C++ keyword "extern" identifies external linkage and is used to connect the entity across scopes in different modules. The C++ keyword "static" identifies internal linkage and is used to connect the entity across scopes within its own module. In this workshop, I use "extern" to connect "g_sysClock" variable in w1_home module and event module. I use "static" to connect "COUNTER" variable in event module. "COUNTER" is invisible in w1_home module.
+
+2. Two command-line arguments.
+The prototype of two command-line arguments is "int main(int argc, char* argv[]);". The first parameter(argc) identifies the number of arguments supplied. The second parameter(argv[]) refers to the address of an array of pointers to C-style null-terminated strings. In this example, I use two command-line arguments to access the monday.txt and Tuesday.txt files and extract required data.
+
+3. Dynamically allocated memory.
+Dynamically allocated memory means the size of the memory allocated is unsure until it is allocated at run-time. In this example, the description need to be a C-style null-terminated string of any length. Because the size of string can not be defined at compiler-time. So I use the pointer of char to identifies this string. Then I set the size of this string according to the setDescription function, copy constructor and assignment operator.
+
+
+Quiz 1 Reflection:
+Question 11:
+My mistake is that it is good practice not to write the suite of unit tests for each module of an application before coding the module's implementation. 
+The correct answer is that it is good practice to write the suite of unit tests for each module of an application before coding the module's implementation. Because unit tests for each module is a very easy way to locate the mistake and repair it.
+
+Question 12:
+My mistake answer: the memory available to an application at run-time consists of dynamic memory.
+The correct answer: the memory available to an application at run-time consists of static memory and dynamic memory.
+
+Question 15:
+My mistake answer: Allocated memory must be deallocated within the scope of the pointer that holds its address. There are two correct choices, but I only chose one. If we do not deallocate an allocated memory, there might have a memory leak. 
+The correct answer: Allocated memory must be deallocated within the scope of the pointer that holds its address. Otherwise, might produce a memory leak.
+
+Question 24:
+My mistake answer: A helper function is a global function that supports a class. This question has two correct choices, but I only chose one.
+The correct answer: A helper function is a global function that supports a class and refers to the class that it supports through its explicit parameter(s).
+
+Question 25:
+My mistake answer: A helper operator is typically an operator that does change the value of its operands.
+The correct answer: A helper operator is typically implement it as a helper function if it doesn’t require to change the value of its operand.
+
+Question 27:
+My mistake answer: The access modifier protected limits access to derived classes, and denies access to client code. This question has two correct choices, but I only chose one.
+
+The correct answer: The access modifier protected identifies subsequent members [ data & functions] as inaccessible to any client code and limits access to derived classes, and denies access to client code.
+
+Question 41:
+My mistake answer: Code 1.0 - Line 8 of Main.cpp prints [main] counter = 0. 
+The correct answer: Code 1.0 - Line 8 of Main.cpp prints [main] counter = 1. The variable 'counter' is an internal linkage. In main module, the value of 'counter' is only changed by the code of "counter".  
+
+Question 43:
+My mistake answer: Code 1.0 - The address printed in line 9 Main.cpp, is the same as the address printed in line 6 of unit_a.cpp is right. 
+The correct answer: Code 1.0 - The address printed in line 9 Main.cpp, is the same as the address printed in line 6 of unit_a.cpp is wrong. Because "counter" is an internal linkage. The variable "counter" with the same name in different module refer to different address.
+
+Question 45:
+My mistake answer: Code 2.0 - Building code 2.0 will result in undefiled symbol linker error because of id.
+The correct answer: Code 2.0 - Building code 2.0 will result in undefiled symbol linker error because of counter.
+

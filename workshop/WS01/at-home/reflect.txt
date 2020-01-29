@@ -1,0 +1,63 @@
+// Name:Hongbin Li
+// Seneca Student ID:119177178
+// Seneca email:hli261@myseneca.ca
+// Date of completion:Jan 18,2020
+
+1. The difference between internal and external linkage 
+
+STATIC:
+event.cpp::18
+	static unsigned int COUNTER = 0;
+Since it's local variable with internal linkage. I do not need to use external linkage. This operation allows the value of COUNTER, to last the duration of the program while only being accessible from the event translation unit."COUNTER" is invisible in w1_home module.
+
+EXTERN:
+event.h::11
+	extern unsigned int g_sysClock;
+event.cpp::16
+	unsigned int g_sysClock = 0;
+This operation allowed me to define an identifier within w1_home.cpp while declaring it in event.h. It essentially allows me to tell the compiler to specifically look within another translation unit for the value of the declared identifier.
+
+2.The changes that you made in upgrading your event class. 
+
+- Added dynamic memory allocation to support the number of characters needed by the passed string into the event class constructor
+- Updated the member 'description' to contain a pointer for dynamic memory allocation
+
+3. What did you learn in completing this workshop?
+- how to implement main function to receive arguments(argc, argv[]). I use two command-line arguments to access the monday.txt and Tuesday.txt files and extract required data.
+- Remembered about namespace definition and usage
+
+
+Quiz 1 Reflections:
+
+Question 12:
+My mistake answer: the memory available to an application at run-time consists of dynamic memory.
+The correct answer: the memory available to an application at run-time consists of static memory and dynamic memory.
+
+Question 24:
+My mistake answer: A helper function is a global function that supports a class. This question has two correct choices, but I only chose one.
+The correct answer: A helper function is a global function that supports a class and refers to the class that it supports through its explicit parameter(s).
+
+Question 25:
+My mistake answer: A helper operator is typically an operator that does change the value of its operands.
+The correct answer: A helper operator is typically implement it as a helper function if it doesn¡¯t require to change the value of its operand.
+
+Question 27:
+My mistake answer: The access modifier protected limits access to derived classes, and denies access to client code. 
+The correct answer: The access modifier protected identifies subsequent members [ data & functions] as inaccessible to any client code and limits access to derived classes, and denies access to client code.
+
+This question has two correct choices. These two answers have same meaning, and I didn't understand correctly, so I only chose one.
+
+Question 41:
+My mistake answer: Code 1.0 - Line 8 of Main.cpp prints [main] counter = 0. 
+The correct answer: Code 1.0 - Line 8 of Main.cpp prints [main] counter = 1. 
+
+The variable 'counter' is an internal linkage. In main module, the value of 'counter' is only changed one time by the code of "counter++". The counter in unit a.cpp is invisible to main module. 
+
+Question 45:
+My mistake answer: Code 2.0 - Building code 2.0 will result in undefiled symbol linker error because of _id.
+The correct answer: Code 2.0 - Building code 2.0 will result in undefiled symbol linker error because of _counter.
+
+Question 48:
+The correct answer is c,[T][t]. It is when for loop i = 3, the third word is "Tests", and argv[3][0] is T, argv[3][3] is t. 
+
+

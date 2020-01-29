@@ -1,0 +1,63 @@
+// Name:    Hongbin Li
+// Seneca Student ID:   119177178
+// Seneca email:    hli261@myseneca.ca
+// Date of completion:  Feb/01/2020
+
+Workshop 3 Reflection:
+
+1. How to use templates. 
+The keyword template can be used to declare or define a function or class, defines a member function, a member class, a member enumeration, or static data member of a class template or a class nested within a class template, defines a member template of a class or class template, declares an alias. A template body accepts externally specified types through the parameters in the template header.  Parameters serve as placeholders throughout the template body for the arguments specified in the template call. In this workshop, I use class templates to declare four class: class Pair, class PairSummable, class Set and class SetSummable.
+
+2. Specialized template classes and functions.
+A template specialization defines an exception to a template definition. In this workshop, I use template specialization to define the sum function.
+
+3. A polymorphic object can have different types throughout its lifetime. In this workshop, I only add the word "virtual" to one function in the base class.
+
+4. I learned use braces initialization.
+
+
+Quiz 3 Reflection:
+Question 3:
+My mistake answer: Why cloning of a polymorphic object at different stages of execution is not straight
+forward and requires extra information? All of the above
+The correct answer: Why cloning of a polymorphic object at different stages of execution is not straight
+forward and requires extra information? In order to allocate the correct amount of memory for the copy.
+
+Question 7:
+My mistake answer: Referencing Q6&7, does the variable shape? Have the same value as the variable alone?YES
+The correct answer: Referencing Q6&7, does the variable shape? Have the same value as the variable alone?NO
+
+Question 9:
+My mistake answer: In Code 2.0, Line 17 will print null pointer on second type-cast? NO.
+The correct answer: In Code 2.0, Line 17 will print null pointer on second type-cast? Yes.
+
+Question 10:
+My mistake answer:  In Code 2.0, Line 19 will print null pointer on third type-cast?NO.
+The correct answer:  In Code 2.0, Line 19 will print null pointer on third type-cast?Yes.
+
+Question 11:
+My mistake answer: In Code 2.0, Line 21 will print null pointer on fourth type-cast?Yes.
+The correct answer: In Code 2.0, Line 21 will print null pointer on fourth type-cast?NO.
+
+Question 16:
+My mistake answer: In Code 3.0, Second iteration of line 44 will print:Pointer to type B.
+The correct answer: In Code 3.0, Second iteration of line 44 will print:Pointer to type A.
+
+Question 17:
+My mistake answer: In Code 3.0, Third iteration of line 44 will print:Pointer to type C.
+The correct answer: In Code 3.0, Third iteration of line 44 will print:Pointer to type A.
+
+Question 18:
+My mistake answer: In Code 4.0, The output of line 8 is:2.  
+The correct answer: In Code 4.0, The output of line 8 is:4.
+
+Question 22:
+My mistake answer: In Code 4.0, The output of line 12 is:2.  
+The correct answer: In Code 4.0, The output of line 12 is:4.
+
+24. In Code 5.0, The output of line 10 is: b. A-A
+
+
+
+
+

@@ -1,0 +1,253 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>未知 </title></head><body>
+<h1 id="workshop-3-templates">Workshop 3: Templates</h1>
+<p>In this workshop, you design and code a couple of class templates and test them on different instantiations.</p>
+<h2 id="learning-outcomes">Learning Outcomes</h2>
+<p>Upon successful completion of this workshop, you will have demonstrated the abilities to:</p>
+<ul>
+<li>design and code a class template</li>
+<li>template a class variable</li>
+<li>specialize a class template for a particular type</li>
+<li>instantiate a template class</li>
+<li>specialize a member function of a class template to process a particular type</li>
+<li>derivate a template class from another template class</li>
+</ul>
+<h2 id="submission-policy">Submission Policy</h2>
+<p>The <em>in-lab</em> section is to be completed during your assigned lab section.  It is to be completed and submitted by the end of the workshop period.  If you attend the lab period and cannot complete the <em>in-lab</em> portion of the workshop during that period, ask your instructor for permission to complete the <em>in-lab</em> portion after the period.  If you do not attend the workshop, you can submit the <em>in-lab</em> section along with your <em>at-home</em> section (see penalties below).  <strong>In order to get credit for the <em>in-lab</em> portion, you must be present in the lab for the entire duration of the lab.</strong></p>
+<p>The <em>at-home</em> portion of the workshop is due on the day that is four days after your scheduled <em>in-lab</em> workshop (@ 23:59:59), <strong>even if that day is a holiday</strong>.</p>
+<p>All your work (all the files you create or modify) must contain your name, Seneca email, student number and the date of completion (use the following template):</p>
+<p><code>cpp
+// Name:
+// Seneca Student ID:
+// Seneca email:
+// Date of completion:
+//
+// I confirm that the content of this file is created by me,
+//   with the exception of the parts provided to me by my professor.</code></p>
+<p>You are responsible to back up your work regularly.</p>
+<h3 id="late-submission-penalties">Late Submission Penalties</h3>
+<p>The workshop can be submitted up to <strong>1 (one) day</strong> late (the day that is 5 days after the lab period); submissions received on this day are considered <strong>late</strong> and are subject to penalties:</p>
+<ul>
+<li>only <em>in-lab</em> portion submitted late (after the end of the lab period): 0 for <em>in-lab</em> portion, max 7/10 for the entire workshop.</li>
+<li>only <em>at-home</em> portion submitted late (more than 4 days after the lab period): max 4 for the <em>at-home</em> portion, max 7/10 for the entire workshop.</li>
+<li>both <em>in-lab</em> <strong>and</strong> <em>at-home</em> portions submitted late: max 4/10 for the entire workshop.</li>
+<li>when the submission closes, if the workshop is not complete, the mark for the entire workshop will be 0/10. The workshop is considered complete if there are two separate submissions (<em>in-lab</em> submission and <em>at-home</em> submission) containing the <em>in-lab code</em>, <em>at-home code</em> and <em>reflection</em>.</li>
+</ul>
+<p>The submission is considered closed at the end of the day that is 5 (five) days after the lab period.</p>
+<h2 id="in-lab"><em>In-Lab</em></h2>
+<p>This workshop consists of three modules:
+- <code>w3</code> (supplied)
+- <code>Set</code>
+- <code>SetSummable</code>
+- <code>Pair</code>
+- <code>PairSummable</code></p>
+<p>Enclose all your source code within the <code>sdds</code> namespace and include the necessary guards in each header file.</p>
+<h3 id="w3-module-supplied"><code>w3</code> Module (supplied)</h3>
+<p><strong>Do not modify this module!</strong>  Look at the code and make sure you understand it.</p>
+<h3 id="set-module"><code>Set</code> Module</h3>
+<p>This module defines a class template for a collection of elements of any data type (for example, a set of <code>int</code>, or a set <code>Student</code>, etc.)</p>
+<p>Design and code a class template named <code>Set</code> for managing a statically allocated array of any datatype.  The template parameters in order of their specification are:</p>
+<ul>
+<li><code>T</code>: the type of any element in the array</li>
+<li><code>N</code>: the maximum number of elements in the array (an integer without sign)</li>
+</ul>
+<p>Your design should be able to distinguish between
+- the capacity of the array (<code>N</code>)
+- the number of elements added to the set. Initially the set is empty.</p>
+<p><strong>This module should not use or know the type <code>Pair</code>!!</strong></p>
+<p><strong><em>Public Members</em></strong></p>
+<ul>
+<li><code>size_t size() const</code>: returns the number of elements in the set</li>
+<li><code>const T&amp; operator[](size_t idx) const</code>: returns the element at index <code>i</code> (assume the parameter is valid).</li>
+<li><code>void operator+=(const T&amp; item)</code>: if the set didn't reach the capacity, add a copy of the parameter to the array. Otherwise, do nothing.</li>
+</ul>
+<h3 id="pair-module"><code>Pair</code> Module</h3>
+<p>Design and code a class template named <code>Pair</code> for managing a <em>key-value</em> pair. The template parameters identify the types of the key and value objects that constitute a <code>Pair</code> object:
+- <code>K</code>: the type of the key
+- <code>V</code>: the type of the value</p>
+<p><strong>This module should not use or know the type <code>Set</code>!!</strong></p>
+<p><strong><em>Public Members</em></strong>
+- default constructor
+- <code>Pair(const K&amp; key, const V&amp; value)</code>: copies the values received in the parameters into instance variables
+- <code>const K&amp; key() const</code>: returns the <strong>key</strong> component of the pair
+- <code>const V&amp; value() const</code>: returns the <strong>value</strong> component of the pair
+- <code>void display(std::ostream&amp; os) const</code>: inserts into the parameter the key and value of the pair in the following format
+  <code>KEY : VALUE&lt;endl&gt;</code></p>
+<p><strong><em>Free Helpers</em></strong>
+- <code>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const Pair&lt;K, V&gt;&amp; pair)</code>: calls the function <code>Pair&lt;L, V&gt;::display()</code> to insert a pair into the stream.</p>
+<h3 id="sample-output">Sample Output</h3>
+<p>When the program is started with the command (the file <code>sales.txt</code> is provided):
+<code>w3.exe sales.txt</code>
+the output should look like:
+```
+Command Line:</p>
+<hr />
+<p>1: w3.exe
+  2: sales.txt</p>
+<hr />
+<h2 id="detail-ticket-sales">Detail Ticket Sales</h2>
+<p>Student : 25
+Adult : 13
+Student : 12
+Adult : 6
+Student : 5
+Adult : 15
+Adult : 1
+Adult : 2
+Adult : 3
+Student : 1
+```</p>
+<h3 id="submission-30">Submission (30%)</h3>
+<p>To test and demonstrate execution of your program use the same data as shown in the output example above.</p>
+<p>Upload your source code to your <code>matrix</code> account. Compile and run your code using the latest version of the <code>g++</code> compiler (available at <code>/usr/local/gcc/9.1.0/bin/g++</code>) and make sure that everything works properly.</p>
+<p>Then, run the following command from your account (replace <code>profname.proflastname</code> with your professor���s Seneca userid):
+<code>~profname.proflastname/submit 345XXX_w3_lab</code>
+and follow the instructions. Replace XXX with the section letter(s) specified by your instructor.</p>
+<p><strong>:warning:Important:</strong> Please note that a successful submission does not guarantee full credit for this workshop. If the professor is not satisfied with your implementation, your professor may ask you to resubmit. Resubmissions will attract a penalty.</p>
+<p>���</p>
+<h2 id="at-home"><em>At-Home</em></h2>
+<p>The <em>at-home</em> part of this workshop upgrades your <em>in-lab</em> solution to include
+- alignment of the key and value output in pretty columnar format
+- accumulation of the values stored in a <code>Set</code>, for a specified key</p>
+<p>To implement each upgrade, you will derive a templated class from your original templated class (one derived class from <code>Set</code> and one derived class from <code>Pair</code>) and specialize the class derived from <code>Pair</code> as described below.</p>
+<h3 id="pair-module_1"><code>Pair</code> Module</h3>
+<p>Modify the function <code>display()</code> in the class <code>Pair</code> to enable polymorphism on it.</p>
+<p>No other changes are necessary in this module.</p>
+<h3 id="pairsummable-module"><code>PairSummable</code> Module</h3>
+<p>Add a new module called <code>PairSummable</code> that represents a <code>Pair</code> with summation and key alignment functionality.</p>
+<p>This class is derived from <code>Pair&lt;K, V&gt;</code>, and receives 2 template parameters:
+- <code>K</code>: the type of the key
+- <code>V</code>: the type of the value</p>
+<p><strong>This module should not use or know the type <code>Set</code> or <code>SetSummable</code>!!</strong></p>
+<p><strong><em>Static Private Members for <code>PairSummable</code></em></strong></p>
+<ul>
+<li>an object of type <code>V</code> that holds the <em>initial value</em> for starting a summation. The initial value depends on the type of the value in the key-value pair and will be defined separately.</li>
+<li>a variable of type <code>size_t</code> that holds the minimum field width for pretty columnar output of key-value pairs (initialize it with 0). This is the minimum number of characters needed to display any of the key in a set of keys.</li>
+</ul>
+<p>This value must be updated every time a new pair is added to the collection.</p>
+<p><strong><em>Static Public Members for <code>PairSummable</code></em></strong></p>
+<ul>
+<li><code>static const V&amp; getInitialValue()</code>: return the initial value stored.</li>
+</ul>
+<p><strong><em>Public Members for <code>PairSummable</code></em></strong></p>
+<ul>
+<li>
+<p>default constructor</p>
+</li>
+<li>
+<p><code>PairSummable(const K&amp; key, const V&amp; value)</code>: stores the pair in the collection, and updates the field width if necessary.
+  This functions assumes that the type <code>K</code> supports a function named <code>size()</code> that returns the number of characters required to display <code>key</code>.</p>
+</li>
+<li>
+<p><code>V sum(const K&amp; key, const V&amp; val) const</code>:</p>
+</li>
+<li>If the key of the pair stored in the current instance is <code>key</code>, then add the value of the pair and <code>val</code> together and return the result. Use <code>+</code> for addition.</li>
+<li>
+<p>Otherwise, return <code>val</code>.</p>
+</li>
+<li>
+<p>overload the <code>display()</code> function to set the alignment to left and the field width and then call <code>display()</code> from the parent class. At the end, restore the alignment to right.</p>
+</li>
+</ul>
+<p><strong><em>Specializations</em></strong></p>
+<ul>
+<li>
+<p>for <code>K = std::string</code> and <code>V = std::string</code>, the initial value for summation should be set to empty string (<code>""</code>).</p>
+</li>
+<li>
+<p>for <code>K = std::string</code> and <code>V = int</code>, the initial value for summation should be set to 0.</p>
+</li>
+<li>
+<p>for <code>K = std::string</code> and <code>V = std::string</code>, the function <code>sum()</code> should concatenate the values stored using <code>,</code> as separator (use operator <code>+</code> to concatenate strings).</p>
+</li>
+</ul>
+<h3 id="set-module_1"><code>Set</code> Module</h3>
+<p>The template class <code>Set</code> doesn't need any change.</p>
+<h3 id="setsummable-module"><code>SetSummable</code> Module</h3>
+<p>Add to the project a <strong>template</strong> class called <code>SetSummable</code>, that can manage a collection of <em>summable</em> elements.</p>
+<p>This class is derived from <code>Set&lt;T, N&gt;</code>, and receives 4 template parameters:
+- <code>T</code>: the type of any element in the collection
+- <code>N</code>: the maximum number of elements in the collection (an integer without sign)
+- <code>K</code>: the type of a key
+- <code>V</code>: the type summation value</p>
+<p>In this design, <em>summable</em> elements are objects of a type that supports the operation <code>V sum(const K&amp; key, const V&amp; val)</code>.</p>
+<p><strong>This module should not use or know the type <code>Pair</code> or <code>PairSummable</code>!!</strong></p>
+<p><strong><em>Public Members for <code>SetSummable</code></em></strong></p>
+<ul>
+<li>
+<p><code>V accumulate(const K&amp; key) const</code>: this function accumulates all the values stored in the collection that have the key <code>key</code> into a local object of type <code>V</code>.</p>
+</li>
+<li>
+<p>get the initial value from the type <code>T</code> and store it into a local variable of type <code>V</code>: this is the accumulator.
+    In this design, the type <code>T</code> must have a static member called <code>getInitialValue()</code>.</p>
+</li>
+<li>
+<p>iterate over the collection and call the function <code>sum()</code> for each item (use the overloaded <code>operator[]</code> to access the item at index <code>i</code>). Store the result of <code>sum()</code> into the accumulator.</p>
+</li>
+<li>
+<p>return the accumulator to the client.</p>
+</li>
+</ul>
+<p>Once the implementation of this module is complete, if you attempt to instantiate the class <code>SetSummable</code> using a type <code>T</code> that doesn't support the <code>sum()</code> and <code>getInitialValue()</code> operations, you will receive compilation errors <strong>for that specific instantiation</strong>.</p>
+<h3 id="sample-output_1">Sample Output</h3>
+<p>When the program is started with the command (the files are provided):
+<code>w3.exe products.txt sales.txt</code>
+the output should look like:
+```
+Command Line:</p>
+<hr />
+<p>1: w3.exe
+  2: products.txt
+  3: sales.txt</p>
+<hr />
+<h2 id="individual-index-entries">Individual Index Entries</h2>
+<p>Groceries   : tomatoes
+Electronics : computer
+Tools       : hammer
+Groceries   : lettuce
+Groceries   : potatoes
+Electronics : Multimedia_Player
+Electronics : HDD
+Groceries   : meat
+Tools       : jigsaw</p>
+<h2 id="collated-index-entries">Collated Index Entries</h2>
+<pre><code>  Tools: hammer, jigsaw
+</code></pre>
+<p>Groceries: tomatoes, lettuce, potatoes, meat
+ Electrnics:
+Electronics: computer, Multimedia_Player, HDD</p>
+<h2 id="detail-ticket-sales_1">Detail Ticket Sales</h2>
+<p>Student : 25
+Adult   : 13
+Student : 12
+Adult   : 6
+Student : 5
+Adult   : 15
+Adult   : 1
+Adult   : 2
+Adult   : 3
+Student : 1
+Student : 2
+Adult   : 5
+Adult   : 6</p>
+<h2 id="summary-of-ticket-sales">Summary of Ticket Sales</h2>
+<p>Student Tickets  =   92.70
+  Adult Tickets  =  169.83
+ Senior Tickets  =    0.00
+```</p>
+<h3 id="reflection">Reflection</h3>
+<p>Study your final solution, reread the related parts of the course notes, and make sure that you have understood the concepts covered by this workshop. <strong>This should take no less than 30 minutes of your time.</strong></p>
+<p>Create a <strong>text</strong> file named <code>reflect.txt</code> that contains your detailed description of the topics that you have learned in completing this particular workshop and mention any issues that caused you difficulty and how you solved them. Include in your explanation���<strong>but do not limit it to</strong>���the following points:
+- the reason for specializing the <code>sum()</code> member function.
+- the reason for specializing the initial value for a summation.
+- the reason for defining the class variable outside the class definition.</p>
+<h4 id="quiz-reflection">Quiz Reflection</h4>
+<p>Add a section to <code>reflect.txt</code> called <strong>Quiz X Reflection</strong>. Replace the <strong>X</strong> with the number of the last quiz that you received and list all questions that you answered incorrectly.</p>
+<p>Then for each incorrectly answered question write your mistake and the correct answer to that question. If you have missed the last quiz, then write all the questions and their answers.</p>
+<h3 id="submission-30-for-code-40-for-reflection">Submission (30% for code, 40% for reflection)</h3>
+<p>To test and demonstrate execution of your program use the same data as shown in the output example above.</p>
+<p>Upload the source code and the reflection file to your <code>matrix</code> account. Compile and run your code using the latest version of the <code>g++</code> compiler (available at <code>/usr/local/gcc/9.1.0/bin/g++</code>) and make sure that everything works properly.</p>
+<p>Then, run the following command from your account (replace <code>profname.proflastname</code> with your professor���s Seneca userid):
+<code>~profname.proflastname/submit 345XXX_w3_home</code>
+and follow the instructions. Replace XXX with the section letter(s) specified by your instructor.</p>
+<p><strong>:warning:Important:</strong> Please note that a successful submission does not guarantee full credit for this workshop. If the professor is not satisfied with your implementation, your professor may ask you to resubmit. Resubmissions will attract a penalty.</p>
+</body></html>

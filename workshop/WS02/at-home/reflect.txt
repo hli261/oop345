@@ -1,0 +1,51 @@
+// Name:    Hongbin Li
+// Seneca Student ID:   119177178
+// Seneca email:    hli261@myseneca.ca
+// Date of completion:  1/25/2020
+
+Workshop 2 Reflection:
+
+1. Difference between the copy and move operations
+
+A move constructor takes the form Class-name(Class-name&&).Copy operations only copy the data of one object to another, leaving the original data member still existing. Move allows the original data to be moved instead of just copied to discourage floating data within memory.
+
+2. Move assignment operator.
+A move assignment operator takes the form Class-name& operator=(Class-name&&). Move assignment operator can be used to move the value of source object to the destination object with omitting the value of source object. I use a move assignment operator to move the value of object to destination object.
+
+3. Reading from a file.
+In c++, the ifstream class can be used to manage reading from a file. In this workshop, I use is_open() and getline() syntax to managing the content of a file.
+
+
+Quiz 2 Reflection:
+Question 1:
+My mistake answer: Code 1.0 - Line 9 code 1.0 will print 300.
+The correct answer: Code 1.0 - Line 9 code 1.0 will print None of the above. 
+The max value of x is 255. The for loop will execute without ending.
+
+Question 2:
+My mistake answer: Code 1.0 ?Line 4 code 1.0 will loop through this many iterations 300.
+The correct answer: Code 1.0 ?Line 4 code 1.0 will loop through this many iterations None of the above. In this code, the for loop will always execute without ending.
+
+Question 3:
+My mistake answer: Code 2.0 will compile successfully. Yes.
+The correct answer: Code 2.0 will compile successfully. No.
+
+Question 20:
+My mistake answer: Code 8.0,  line 5 will print l-value  30.
+The correct answer: Code 8.0,  line 5 will print r-value  30.
+
+Question 25:
+My mistake answer: Code 10,  line 5 will print 11.
+The correct answer: Code 10,  line 5 will print 10. 
+The type of bar is int. The value of bar is changed after ++bar, the value of foo is not changed.
+
+Question 34:
+My mistake answer: Code 13.0, 3 line will cause compilation error.
+The correct answer: Code 13.0, 4 line will cause compilation error. 
+In a constructor, the const variable can only be defined after the single colon.   
+
+Question 35:
+My mistake answer: Code 14.0, will output 300.  
+The correct answer: Code 14.0, will output 44. 
+The max value of a unsigned character is 255. In this code, the value of x will be 32+8+4=44.
+

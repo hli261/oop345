@@ -1,0 +1,201 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>未知 </title></head><body>
+<h1 id="workshop-2-move-and-copy-semantics">Workshop 2: Move and Copy Semantics</h1>
+<p>In this workshop, you work with a large dynamically allocated array of C++ Standard Library strings and compare the performance of copy and move operations on that collection.</p>
+<h2 id="learning-outcomes">Learning Outcomes</h2>
+<p>Upon successful completion of this workshop, you will have demonstrated the abilities to:</p>
+<ul>
+<li>retrieve records from a text file using an input file stream  object</li>
+<li>count the number of records in a text file</li>
+<li>monitor the time spent on a particular task using the <code>std::chrono</code> library</li>
+<li>implement <strong>copy semantics</strong> for a class with a resource</li>
+<li>implement <strong>move semantics</strong> for a class with a resource</li>
+<li>identify the processing-intensive operations in copy and move assignments</li>
+</ul>
+<h2 id="submission-policy">Submission Policy</h2>
+<p>The <em>in-lab</em> section is to be completed during your assigned lab section.  It is to be completed and submitted by the end of the workshop period.  If you attend the lab period and cannot complete the <em>in-lab</em> portion of the workshop during that period, ask your instructor for permission to complete the <em>in-lab</em> portion after the period.  If you do not attend the workshop, you can submit the <em>in-lab</em> section along with your <em>at-home</em> section (see penalties below).  <strong>In order to get credit for the <em>in-lab</em> portion, you must be present in the lab for the entire duration of the lab.</strong></p>
+<p>The <em>at-home</em> portion of the workshop is due on the day that is four days after your scheduled <em>in-lab</em> workshop (@ 23:59:59), <strong>even if that day is a holiday</strong>.</p>
+<p>All your work (all the files you create or modify) must contain your name, Seneca email, student number and the date of completion (use the following template):</p>
+<p><code>cpp
+// Name:
+// Seneca Student ID:
+// Seneca email:
+// Date of completion:
+//
+// I confirm that the content of this file is created by me,
+//   with the exception of the parts provided to me by my professor.</code></p>
+<p>You are responsible to back up your work regularly.</p>
+<h3 id="late-submission-penalties">Late Submission Penalties</h3>
+<p>The workshop can be submitted up to <strong>1 (one) day</strong> late (the day that is 5 days after the lab period); submissions received on this day are considered <strong>late</strong> and are subject to penalties:</p>
+<ul>
+<li>only <em>in-lab</em> portion submitted late (after the end of the lab period): 0 for <em>in-lab</em> portion, max 7/10 for the entire workshop.</li>
+<li>only <em>at-home</em> portion submitted late (more than 4 days after the lab period): max 4 for the <em>at-home</em> portion, max 7/10 for the entire workshop.</li>
+<li>both <em>in-lab</em> <strong>and</strong> <em>at-home</em> portions submitted late: max 4/10 for the entire workshop.</li>
+<li>when the submission closes, if the workshop is not complete, the mark for the entire workshop will be 0/10. The workshop is considered complete if there are two separate submissions (<em>in-lab</em> submission and <em>at-home</em> submission) containing the <em>in-lab code</em>, <em>at-home code</em> and <em>reflection</em>.</li>
+</ul>
+<p>The submission is considered closed at the end of the day that is 5 (five) days after the lab period.</p>
+<h2 id="in-lab"><em>In-Lab</em></h2>
+<p>This workshop consists of three modules:
+- <code>w2</code> (supplied)
+- <code>TimedEvents</code>
+- <code>RecordSet</code></p>
+<p>Enclose all your source code within the <code>sdds</code> namespace and include the necessary guards in each header file.</p>
+<h3 id="w2-module-supplied"><code>w2</code> Module (supplied)</h3>
+<p><strong>Do not modify this module!</strong>  Look at the code and make sure you understand it.</p>
+<h3 id="timedevents-module"><code>TimedEvents</code> Module</h3>
+<p>Design and code a class named <code>TimedEvents</code> that manages a <strong>statically</strong> allocated array of record objects.  Your class predefines the maximum number of record objects at 7. The <strong>instance variables</strong> for your class should include:
+- the number of records currently stored
+- the start time for the current event (an object of type <code>std::chrono::steady_clock::time_point</code>; see documentation <a href="https://en.cppreference.com/w/cpp/chrono/time_point">here</a>)
+- the end time for the current event (an object of type <code>std::chrono::steady_clock::time_point</code>)
+- an array of records of anonymous structure type (the structure has no name). The structure should contain the following fields:
+  - a string with the event name.
+  - a string with the predefined units of time
+  - the duration of the recorded event (an object of type <code>std::chrono::steady_clock::duration</code>; see documentation <a href="https://en.cppreference.com/w/cpp/chrono/duration">here</a>)</p>
+<p>Your class includes the following member functions:
+- a default constructor
+- <code>startClock()</code>: a modifier that starts the timer for an event
+- <code>stopClock()</code>: a modifier that stops the timer for an event
+- <code>recordEvent()</code>: a modifier that receives the address of a C-style null terminated string that holds the name of the event.  This function will update the next time-record in the array:
+  - stores the parameter into the name attribute
+  - stores <code>"nanoseconds"</code> as the units of time
+  - calculates and stores the duration of the event (use <code>std::chrono::duration_cast&lt;std::chrono::nanoseconds&gt;()</code>, see documentation <a href="https://en.cppreference.com/w/cpp/chrono/duration/duration_cast">here</a>)
+- a <strong>friend insertion operator</strong> that receives a reference to an <code>std::ostream</code> object and a <code>TimedEvents</code> object. This operator should insert in the first parameter the records from the array in the following format:</p>
+<p>```
+  Execution Times:</p>
+<hr />
+<p>EVENT_NAME DURATION UNITS
+  EVENT_NAME DURATION UNITS
+  ...</p>
+<hr />
+<p>```</p>
+<p>The <strong>name</strong> of the event should be a field of size 20, aligned on the left; the <strong>duration</strong> should be a field of size 12, aligned on the right.</p>
+<p>Starting and stopping the timer means getting the current time (use <code>std::chrono::steady_clock::now()</code>; see documentation <a href="https://en.cppreference.com/w/cpp/chrono/steady_clock/now">here</a>).</p>
+<h3 id="recordset-module"><code>RecordSet</code> Module</h3>
+<p>Design and code a class named <code>RecordSet</code> that manages a <strong>dynamically</strong> allocated array of <code>std::string</code>s. Your class keeps track of the number of strings currently stored and defines the following member functions:
+- a no-argument default constructor
+- a 1-argument constructor that receives the address of a C-style null terminated string containing the name of a file from which this member function populates the current object. This function
+  1. reads the file to count the number of records present (the record delimiter should be a single space <code>' '</code>)
+  2. allocates memory for that number records in the array
+  3. re-reads the file and loads the records into the array.
+- a copy constructor
+- a copy assignment operator
+- a destructor
+- <code>size_t size()</code>: a query that returns the number of records stored in the current object.
+- <code>std::string getRecord(size_t)</code>: a query that returns the record at the index received as parameter. If the index is invalid, this function should return the empty string.</p>
+<p>To review the syntax for reading from a text file using an <code>std::ifstream</code> object see the chapter in your notes entitled <a href="https://scs.senecac.on.ca/~BTP200/pages/content/files.html">Custom File Operators</a>.</p>
+<h3 id="sample-output">Sample Output</h3>
+<p>When the program is started with the command:
+<code>w2.exe gutenberg_shakespeare</code>
+the output should look like:
+```
+Command Line:</p>
+<hr />
+<p>1: ws
+  2: gutenberg_shakespeare</p>
+<hr />
+<p>0-arg Constructor - a.size =       0 records -&gt;   (a) Record    0: []
+                                                    (a) Record  100: []
+                                                    (a) Record 1000: []
+                                                    (a) Record last: []</p>
+<p>1-arg Constructor - b.size = 1293934 records -&gt;   (b) Record    0: [This]
+                                                    (b) Record  100: [USED]
+                                                    (b) Record 1000: [or]
+                                                    (b) Record last: [Shakespeare]</p>
+<p>Copy Constructor  - c.size = 1293934 records -&gt;   (c) Record    0: [This]
+                                                    (c) Record  100: [USED]
+                                                    (c) Record 1000: [or]
+                                                    (c) Record last: [Shakespeare]</p>
+<p>Copy Assignment   - a.size = 1293934 records -&gt;   (a) Record    0: [This]
+                                                    (a) Record  100: [USED]
+                                                    (a) Record 1000: [or]
+                                                    (a) Record last: [Shakespeare]</p>
+<hr />
+<h2 id="execution-times">Execution Times:</h2>
+<p>0-arg Constructor           400 nanoseconds
+  1-arg Constructor     143568386 nanoseconds
+  Copy Constructor       41302993 nanoseconds
+  Copy Assignment        40913697 nanoseconds
+  Destructor             18210121 nanoseconds</p>
+<hr />
+<p>```</p>
+<p><strong>Note:</strong> The execution times will be different every time you run the program! Everything else should match.</p>
+<h3 id="submission-30">Submission (30%)</h3>
+<p>To test and demonstrate execution of your program use the same data as shown in the output example above.</p>
+<p>Upload your source code to your <code>matrix</code> account. Compile and run your code using the latest version of the <code>g++</code> compiler (available at <code>/usr/local/gcc/9.1.0/bin/g++</code>) and make sure that everything works properly.</p>
+<p>Then, run the following command from your account (replace <code>profname.proflastname</code> with your professor���s Seneca userid):
+<code>~profname.proflastname/submit 345XXX_w2_lab</code>
+and follow the instructions. Replace XXX with the section letter(s) specified by your instructor.</p>
+<p><strong>:warning:Important:</strong> Please note that a successful submission does not guarantee full credit for this workshop. If the professor is not satisfied with your implementation, your professor may ask you to resubmit. Resubmissions will attract a penalty.</p>
+<p>���</p>
+<h2 id="at-home"><em>At-Home</em></h2>
+<p>For this part of the workshop, upgrade the <code>RecordSet</code> class to include a <strong>move constructor</strong> and a <strong>move assignment operator</strong>.  No other modules need to be changed.</p>
+<h3 id="sample-output_1">Sample Output</h3>
+<p>When the program is started with the command:
+<code>w2.exe gutenberg_shakespeare</code>
+the output should look like:
+```
+Command Line:</p>
+<hr />
+<p>1: ws
+  2: gutenberg_shakespeare</p>
+<hr />
+<p>0-arg Constructor - a.size =       0 records -&gt;   (a) Record    0: []
+                                                    (a) Record  100: []
+                                                    (a) Record 1000: []
+                                                    (a) Record last: []</p>
+<p>1-arg Constructor - b.size = 1293934 records -&gt;   (b) Record    0: [This]
+                                                    (b) Record  100: [USED]
+                                                    (b) Record 1000: [or]
+                                                    (b) Record last: [Shakespeare]</p>
+<p>Copy Constructor  - c.size = 1293934 records -&gt;   (c) Record    0: [This]
+                                                    (c) Record  100: [USED]
+                                                    (c) Record 1000: [or]
+                                                    (c) Record last: [Shakespeare]</p>
+<p>Copy Assignment   - a.size = 1293934 records -&gt;   (a) Record    0: [This]
+                                                    (a) Record  100: [USED]
+                                                    (a) Record 1000: [or]
+                                                    (a) Record last: [Shakespeare]</p>
+<p>Move Constructor  - d.size = 1293934 records -&gt;   (a) Record    0: []
+                                                    (a) Record  100: []
+                                                    (a) Record 1000: []
+                                                    (a) Record last: []</p>
+<pre><code>                                                (d) Record    0: [This]
+                                                (d) Record  100: [USED]
+                                                (d) Record 1000: [or]
+                                                (d) Record last: [Shakespeare]
+</code></pre>
+<p>Move Assignment   - a.size = 1293934 records -&gt;   (a) Record    0: [This]
+                                                    (a) Record  100: [USED]
+                                                    (a) Record 1000: [or]
+                                                    (a) Record last: [Shakespeare]</p>
+<pre><code>                                                (d) Record    0: []
+                                                (d) Record  100: []
+                                                (d) Record 1000: []
+                                                (d) Record last: []
+</code></pre>
+<hr />
+<h2 id="execution-times_1">Execution Times:</h2>
+<p>0-arg Constructor           400 nanoseconds
+  1-arg Constructor     150157814 nanoseconds
+  Copy Constructor       41364391 nanoseconds
+  Copy Assignment        40878296 nanoseconds
+  Move Constructor            300 nanoseconds
+  Move Assignment             100 nanoseconds
+  Destructor             17899923 nanoseconds</p>
+<hr />
+<p>```</p>
+<p><strong>Note:</strong> See that in the sample output above the <em>move operations</em> are <strong>many orders of magnitude</strong> faster than the <em>copy operations</em>.  If your output doesn't have such a significant difference in times, keep working on your implementation (the actual numbers will be different every time you run the application).</p>
+<h3 id="reflection">Reflection</h3>
+<p>Study your final solution, reread the related parts of the course notes, and make sure that you have understood the concepts covered by this workshop. <strong>This should take no less than 30 minutes of your time.</strong></p>
+<p>Create a <strong>text</strong> file named <code>reflect.txt</code> that contains your detailed description of the topics that you have learned in completing this particular workshop and mention any issues that caused you difficulty and how you solved them. Include in your explanation���<strong>but do not limit it to</strong>���the following points:
+- the reason for the significant time difference between the copy and move operations</p>
+<h4 id="quiz-reflection">Quiz Reflection</h4>
+<p>Add a section to <code>reflect.txt</code> called <strong>Quiz X Reflection</strong>. Replace the <strong>X</strong> with the number of the last quiz that you received and list all questions that you answered incorrectly.</p>
+<p>Then for each incorrectly answered question write your mistake and the correct answer to that question. If you have missed the last quiz, then write all the questions and their answers.</p>
+<h3 id="submission-30-for-code-40-for-reflection">Submission (30% for code, 40% for reflection)</h3>
+<p>To test and demonstrate execution of your program use the same data as shown in the output example above.</p>
+<p>Upload the source code and the reflection file to your <code>matrix</code> account. Compile and run your code using the latest version of the <code>g++</code> compiler (available at <code>/usr/local/gcc/9.1.0/bin/g++</code>) and make sure that everything works properly.</p>
+<p>Then, run the following command from your account (replace <code>profname.proflastname</code> with your professor���s Seneca userid):
+<code>~profname.proflastname/submit 345XXX_w2_home</code>
+and follow the instructions. Replace XXX with the section letter(s) specified by your instructor.</p>
+<p><strong>:warning:Important:</strong> Please note that a successful submission does not guarantee full credit for this workshop. If the professor is not satisfied with your implementation, your professor may ask you to resubmit. Resubmissions will attract a penalty.</p>
+</body></html>
