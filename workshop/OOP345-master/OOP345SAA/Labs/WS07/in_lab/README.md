@@ -1,2 +1,0 @@
-# STL Algorithms Lab
-
